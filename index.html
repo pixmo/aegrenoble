@@ -3,45 +3,112 @@
 
 <head>
 
-  <title>Apéro Entrepreneurs Grenoble</title>
+  <title>Apéro Entrepreneurs de Grenoble</title>
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-language" content="fr" />
-
+  <meta name="format-detection" content="telephone=yes" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
   <meta http-equiv="Content-Style-Type" content="text/css" />
-  <link rel="stylesheet" type="text/css" media="all" href="/css/global.css" />
 
-  <script language="JavaScript" type="text/javascript">
-  <!--
-    if(top.location!=location){top.location.href=document.location.href;}
-  //-->
-  </script>
+  <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="css/global.css" />
+
 </head>
 
 <body>
 
-<div id="logo">
-  <a href="/" title="Apéro Entrepreneurs Grenoble">
-    <img src="/images/apero-entrepreneurs-grenoble.png" width="684" height="300" alt="Apéro Entrepreneurs Grenoble" />
-  </a>
+<div id="main" class="container">
+  <div id="main-content" class="row-fluid">
+    <div class="span9">
+      <div id="logo">
+        <img src="images/apero-entrepreneurs-grenoble.png" alt="Apéro Entrepreneurs Grenoble" />
+      </div>
+      <div id="header">
+        <img src="images/map.png" alt="Apéro Entrepreneurs Grenoble" />
+        <div id="announcer">
+          Prochaine édition : <span data-bind="text: nextDate"></span><br />
+          <a href="https://twitter.com/AEGrenoble" class="twitter-follow-button" data-show-count="true" data-lang="fr" data-size="large">Suivre @AEGrenoble</a>
+        </div>
+      </div>
+
+      <div class="text">
+          <h2>Bienvenue</h2>
+          <p>
+          Les ApéroEntrepreneurs, c’est tous les premiers jeudis du mois l’occasion de se retrouver entre nous, les entrepreneurs, dans un cadre informel et sympa. Pas de conférence ou de table ronde, pas de badges accrochés aux vestes, pas d’intervenant « star », rien que des échanges sympas pour mieux se connaître et pourquoi pas, une fois en confiance, essayer de se filer un coup de pouce ou échanger quelques tuyaux, recommandations, contacts, contrats, etc.
+          </p>
+          <p>
+          Au ApéroEntrepreneurs la règle des 3C s’applique : pas de Cravate, pas de Consultants, pas de Commerciaux (on entend par là « personne qui vient vendre ses prestations à des (plutôt jeunes) entrepreneurs »)
+          </p>
+          L’ApéroEntrepreneurs est ouvert à toutes celles et tous ceux qui ont créé ou sont en train de créer leur entreprise.
+          <p>
+          Plus d'information sur le <a href="http://www.aperoentrepreneurs.com/about/" target="_blank">site officiel</a>
+          </p>
+          <p>
+            <b>Info pratique:</b><br />
+            Le Café De La Table Ronde
+            7 Place Saint-André, 38000 Grenoble
+          </p>
+          Contactez-nous via twitter <a href="http://twitter.com/AEGrenoble" target="_blank">@AEGrenoble</a> ou sur <a href="http://facebook.com/AEGrenoble" target="_blank">Facebook</a>.
+      </div>
+
+     </div>
+     <div id="plus" class="span3">
+      <h2>Organisateurs</h2>
+      <ul id="organizers" data-bind="foreach: organizers">
+        <li>
+          <label data-bind="text: name"></label>
+          <span data-bind="text: twitter"></span>
+          <a data-bind="attr: { href: 'https://twitter.com/' + twitter }" class="twitter-follow-button" data-show-count="false" data-lang="fr" data-show-screen-name="false">Suivre <span data-bind="text: twitter"></span></a>
+        </li>
+      </ul>
+      <h2>Tweet</h2>
+      <div id="twitter"></div>
+     </div>
+  </div>
 </div>
 
-<div id="where">
-  <p>
-    Entrepreneurs grenoblois et alpins, rendez-vous tous les 1er jeudis du mois à 19h autour d'une bière ou d'un verre de vin, en centre ville.
-    Ouvert à tous (idée, projet, déjà créé...).
-    Prosélytisme commercial non accepté.
-    Contactez-nous via twitter <a href="http://twitter.com/AEGrenoble" target="_blank">@AEGrenoble</a> ou sur <a href="http://facebook.com/AEGrenoble" target="_blank">Facebook</a>.
-  </p>
-</div>
+<script type="text/javascript" src="./js/vendor/knockout.min.js"></script>
+<script type="text/javascript" src="./js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="./js/vendor/jquery.tweet.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
 
-<div id="twitter">
-  <a class="twitter-timeline" data-dnt=true href="https://twitter.com/AEGrenoble" data-widget-id="258132431834578944">Tweets by @AEGrenoble</a>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="http://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<script>
+
+$(document).ready(function() {
+
+  $("#twitter").tweet({
+      username: "AEGrenoble",
+      join_text: "",
+      avatar_size: 32,
+      count: 5,
+      loading_text: "Chargement des tweets..."
+  }).bind("loaded", function() {
+      var ul = $(this).find(".tweet_list");
+      var childrenIndex = 1;
+      var ticker = function() {
+        setTimeout(function() {
+          var top = ul.position().top;
+          var h = ul.height();
+          var incr = $(ul.children()[childrenIndex++]).position().top;
+          var newTop = -incr;
+          ul.animate( {top: newTop}, 500 );
+          if (childrenIndex == ul.children().length) {
+            childrenIndex = 0;
+            newTop = 0;
+          }
+          ticker();
+        }, 5000);
+      };
+      ticker();
+    });
+
+  });
+</script>
 
 </body>
 
 </html>
-
