@@ -1,4 +1,4 @@
-(function() {
+$(document).ready(function() {
 
 	var organizersArray = [
 		{ name: 'Quentin Supernant', twitter:'@QuentinSup' },
@@ -7,14 +7,14 @@
 		{ name: 'Julien Lebeau', twitter:'@_Jlebeau_' }
 	];
 
-	var nextDate = ko.observable('2 mai 2013');
+	var _nextDate = ko.observable('2 mai 2013');
 
 	var _organizers = ko.observableArray(organizersArray);
 	var view = {
 		organizers: _organizers,
-		nextDate : nextDate
+		nextDate : _nextDate
 	};
 
 	ko.applyBindings(view);
 
-})();
+});
