@@ -7,7 +7,7 @@ $(document).ready(function() {
 		{ name: 'Julien Lebeau', twitter:'@_Jlebeau_' }
 	];
 
-	var _nextDate = ko.observable('2 mai 2013');
+	var _nextDate = ko.observable('6 juin 2013');
 
 	var _organizers = ko.observableArray(organizersArray);
 	var view = {
