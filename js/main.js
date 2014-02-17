@@ -5,18 +5,21 @@ $(document).ready(function() {
 		var date = now.getDate();
 		var newDate = new Date(now.getTime());
 		newDate.setDate(1);
+
 		var firstDayOfMonth = newDate.getDay();
 		var eventDate = new Date(now.getTime());
+		
 		if(firstDayOfMonth > 4) {
-			eventDate.setDate((6 - firstDayOfMonth) + 4);
+			eventDate.setDate((7 - firstDayOfMonth) + 5);
 		} else {
 			eventDate.setDate(5 - firstDayOfMonth);
 		}
+		
 		return eventDate;
 	};
 
-	var getNextEventDate = function() {
-		var now = new Date();
+	var getNextEventDate = function(d) {
+		var now = d || new Date();
 		var eventDate = getEventDate(now);
 		if(now.getDate() > eventDate.getDate()) {
 			now.setMonth(now.getMonth() + 1);
@@ -50,6 +53,15 @@ $(document).ready(function() {
 		organizers: _organizers,
 		nextDate : _nextDate
 	};
+
+	/*
+	for(var i = 0; i < 11; i++) {
+		var d = new Date();
+		d.setDate(1);
+		d.setMonth(i);
+		console.log(getNextEventDate(d));
+	}
+	*/
 
 	ko.applyBindings(view);
 
